@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+use App\Vote;
+
 class User extends Authenticatable
 {
     use Notifiable;
@@ -26,4 +28,22 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function votes() {
+        return $this->hasMany('App\Vote');
+    }
+
+    public function votedForPicture($picture) {
+        return $this->votes()
+            ->where('votes.picture_id', '=', $picture->id)
+            ->get()
+            ->isNotEmpty();
+    }
+
+    public function getUserVoteForPicture($picture) {
+        return $this->votes()
+            ->where('votes.picture_id', '=', $picture->id)
+            ->get()
+            ->first();
+    }
 }

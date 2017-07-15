@@ -22,4 +22,11 @@ class Vote extends Model
          return $this->belongsTo('App\Game');
      }
 
+    public function isUpVote() {
+        return $this->value > 0;
+    }
+
+    public function isDownVote() {
+        return $this->value < 0;
+    }
 }

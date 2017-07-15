@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,6 +14,18 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'MainController');
+
+Route::get('/console/{id}', 'ConsoleController@listGames');
+
+Route::get('/pictures/vote/{id}/{action}', 'PictureController@vote');
+
+Route::get('/games/{id}', 'GameController@find');
+
+Route::get('/games', 'GameController@search');
+
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+
+Auth::routes();
+
+
