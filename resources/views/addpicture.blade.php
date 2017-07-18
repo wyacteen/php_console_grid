@@ -1,7 +1,3 @@
-@push('scripts')
-    <script src="/js/addpicture.js"></script>
-@endpush
-
 <form enctype="multipart/form-data" method="post">
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
     <div class="form-group">
