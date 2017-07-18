@@ -34,7 +34,7 @@
           </a>
           <ul class="dropdown-menu">
             @foreach ($consoles as $console)
-                <li><a href="/console/{{$console->id}}">{{$console->shortname}}</a></li>
+                <li><a href="/console/{{$console->id}}">{{$console->name}} - {{$console->shortname}}</a></li>
             @endforeach
           </ul>
         </li>

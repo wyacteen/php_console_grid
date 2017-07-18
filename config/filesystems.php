@@ -54,6 +54,12 @@ return [
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
+        # This points to the public folder for
+        # all game images.
+        'image_upload' => [
+            'driver' => 'local',
+            'root' => 'images/game_images',
+        ],
 
         's3' => [
             'driver' => 's3',

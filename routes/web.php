@@ -22,6 +22,8 @@ Route::get('/pictures/vote/{id}/{action}', 'PictureController@vote');
 
 Route::get('/games/{id}', 'GameController@find');
 
+Route::post('/games/{id}', 'GameController@uploadImage');
+
 Route::get('/games', 'GameController@search');
 
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');

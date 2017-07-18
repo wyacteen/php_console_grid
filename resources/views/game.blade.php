@@ -85,5 +85,12 @@
         @if(!$hasPictures)
         No pictures added yet.
         @endif
+
+        @if(Auth::user())
+            <div class="page-header">
+                <h2>Add Picture</h2>
+            </div>
+            @include('addpicture')
+        @endif
     </section> 
 @endsection

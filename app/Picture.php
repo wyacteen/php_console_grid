@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 use App\Vote;
 
@@ -49,6 +50,16 @@ class Picture extends Model
 
     public function user() {
         return $this->belongsTo('App\User');
+    }
+
+    // overriden to delete associated file
+    public function delete() {
+        
+        if ($this->image_name) {
+            Storage::disk('image_upload')->delete($this->image_name);
+        }
+
+        return parent::delete();
     }
 
 }
