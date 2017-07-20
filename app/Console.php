@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\Game;
+
 class Console extends Model
 {
     /**
@@ -19,7 +21,7 @@ class Console extends Model
      * Gets the game data for this console
      */
     public function games() {
-        return $this->hasMany(Game::class);
+        return $this->hasMany('App\Game');
     }
 
 }
