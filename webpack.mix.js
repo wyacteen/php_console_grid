@@ -15,5 +15,6 @@ mix.js([
     'resources/assets/js/app.js',
     'node_modules/bootstrap-fileinput/js/fileinput.js',
     ], 'public/js/app.js')
-    .sass('resources/assets/sass/app.scss', 'public/css'
-);
+    .sass('resources/assets/sass/app.scss', 'public/css')
+    .sass('resources/assets/sass/game.scss', 'public/css')
+    .sass('resources/assets/sass/main.scss', 'public/css');

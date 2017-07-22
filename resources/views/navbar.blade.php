@@ -9,14 +9,14 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="">Alt-ConsoleGrid</a>
+      <a class="navbar-brand" href="/">alt-ConsoleGrid</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <form class="navbar-form navbar-left" action="/games" accept-charset="UTF-8">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search" name="q">
+          <input type="text" class="form-control" placeholder="Search" name="query">
         </div>
         <button type="submit" class="btn btn-default">Submit</button>
       </form>
