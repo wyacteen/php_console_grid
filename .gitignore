@@ -5,6 +5,11 @@
 /vendor
 /.idea
 /.vagrant
+
+/bootstrap/
+/storage/**
+/public/**
+
 Homestead.json
 Homestead.yaml
 npm-debug.log
