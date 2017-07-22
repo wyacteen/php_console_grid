@@ -61,6 +61,12 @@ return [
             'root' => 'images/game_images',
         ],
 
+        # This is where search indexes will be stored.
+        'search_index' => [
+            'driver' => 'local',
+            'root' => storage_path('app/search_index'),
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_KEY'),

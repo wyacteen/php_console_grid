@@ -1,0 +1,33 @@
+ul.vote {
+    list-style: none;
+    text-align: center;
+    margin-right: 25px;
+
+
+    li {
+        font-size: 30px;
+        font-weight: bold;
+    }
+
+    li.vote-arrow {
+        height: 50px;
+    }
+
+    li.spacer {
+        vertical-align: middle;
+        line-height: 30px;
+        height: 38px;
+    }
+}
+
+.picture-container {
+    width: 65%;
+    margin: auto;
+
+    img {
+        max-width: 75%;
+    }
+}
+
+
+

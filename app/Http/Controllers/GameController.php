@@ -16,9 +16,13 @@ class GameController extends Controller
 {
 
     public function search(Request $request) {
-        $query = $request->Input('q');
-        // We don't support search. For now just print the query.
-        print $query;
+        $query = $request->Input('query');
+        $results = Game::search($query)->paginate(30);
+
+        return view('game_search', [
+            'games' => $results,
+        ]);
+        
     }
 
     public function find($id) {
