@@ -10,11 +10,16 @@ use Illuminate\Support\Facades\Storage;
 use App\Game;
 use App\Picture;
 use App\User;
+use App\Console;
 
 
 class GameController extends Controller
 {
 
+    /**
+     * Handles a search request
+     *
+     */
     public function search(Request $request) {
         $query = $request->Input('query');
         $results = Game::search($query)->paginate(30);
@@ -25,8 +30,14 @@ class GameController extends Controller
         
     }
 
+    /**
+     * Find a game by id and route to view that
+     * can display its details.
+     *
+     *  @param $id -- the id of the gave to view
+     *
+     */
     public function find($id) {
-
         $game = Game::find($id);
         $console = $game->console;
         $pictures = $game->pictures;
@@ -57,6 +68,39 @@ class GameController extends Controller
             'pictures' => $pictureData,
             'imageRoot' => '/images/game_images',
         ]);
+    }
+
+    /**
+     * Show the user the add new game form.
+     */
+    public function showAddNewGameForm() {
+        return view('addnewgame');
+    }
+
+    /**
+     * Adds a new game to the database.
+     *
+     * @param $request - The Request object
+     */
+    public function addNewGame(Request $request) {
+
+        // Make sure we have required fields.
+        $this->validate($request, [
+            'console_id' => 'required',
+            'game_name' => 'required|max:200'
+        ]);
+
+        $consoleID = $request->Input('console_id');
+        $gameName = $request->Input('game_name');
+        $console = Console::find($consoleID);
+        $user = Auth::user();
+        $game = new Game();
+        $game->name = $gameName;
+        $game->console()->associate($console);
+        $game->save();
+
+        // Redirect to game page so that they can add a picture
+        return redirect("/games/$game->id");   
     }
 
     /**
