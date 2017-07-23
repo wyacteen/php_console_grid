@@ -4,8 +4,9 @@
 
 @section('content')
 <div>
-    <h1>Add a New Game</h1>
-    <hr>
+    <div class='page-header'>
+        <h1>Add a New Game</h1>
+    </div>
     <form accept-charset="UTF-8" action="/games/new" method="post">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <div class="form-group form-group-lg">
