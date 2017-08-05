@@ -6,9 +6,11 @@
 /.idea
 /.vagrant
 
-/bootstrap/
-/storage/**
-/public/**
+/storage/app/search_index/*
+/public/css/*
+/public/images/*
+/public/js/*
+/public/fonts
 
 Homestead.json
 Homestead.yaml
