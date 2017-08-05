@@ -17,12 +17,22 @@ class Game extends Model
         return $this->hasMany('App\Picture');
     }
 
+    public function topRatedPicture() {
+        $topRatedPicture = NULL;
+        if ($this->pictures->isNotEmpty()) {
+            $topRatedPicture = $this->pictures->sortByDesc('netVotes')->first();
+        }
+        return $topRatedPicture;
+    }
+
     public function toSearchableArray() {
         $game_data = $this->toArray();
-        // customize array
-        $game_data['console'] = $this->console;
 
-        return $game_data;
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'console_name' => $this->console->name,
+        ];
     }
 
     /**
