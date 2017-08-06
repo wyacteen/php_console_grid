@@ -9,7 +9,7 @@
 @section('content')
     <div class='logo'>
     <h1>
-        <span>alt-ConsoleGrid</span>
+        <span>ConsoleGridPics</span>
     </h1>
     </div>
     <form class="" action="/games" accept-charset="UTF-8">
