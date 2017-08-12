@@ -20,7 +20,11 @@ Route::get('/console/{id}', 'ConsoleController@listGames');
 
 Route::get('/pictures/vote/{id}/{action}', 'PictureController@vote');
 
-Route::get('/games/{id}', 'GameController@find');
+Route::get('/games/{id}', 'GameController@find')->where('id', '\d+');
+
+Route::get('/games/new', 'GameController@showAddNewGameForm')->middleware('auth');
+
+Route::post('/games/new','GameController@addNewGame')->middleware('auth');
 
 Route::post('/games/{id}', 'GameController@uploadImage');
 

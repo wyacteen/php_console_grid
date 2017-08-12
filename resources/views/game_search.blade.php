@@ -3,8 +3,22 @@
 @include('navbar')
 
 @section('content')
-<h1>Search Results</h1>
-<hr>
+
+<div class="row">
+
+    <div class="col-md-8">
+        <h1>Search Results</h1>
+    </div>
+
+    @if(Auth::user())
+
+    <div class="col-md-4">
+        <a role="button" class="btn btn-primary pull-right" href="/games/new">Add New Game</a>
+    </div>
+
+    @endif
+
+</div>
 <table class='game-table table table-bordered table-striped'>
     @if($games->isNotEmpty())
     <tbody>
@@ -28,4 +42,5 @@
     @endif
 </table>
 {{$games->links()}}
+
 @endsection
