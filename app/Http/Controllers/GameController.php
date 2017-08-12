@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
+use Illuminate\Support\Facades\Log;
+
 use App\Game;
 use App\Picture;
 use App\User;
@@ -31,10 +33,80 @@ class GameController extends Controller
     }
 
     /**
+     * Handles top_picture requests from API requests.
+     */
+    public function topPictureSearch(Request $request) {
+        $gameName = $request->Input('game');
+        $consoleShortName = $request->Input('console');
+        Log::info('top_picture: game: ' . $gameName . ' console: ' . $consoleShortName);
+        return $this->findTopPicture($gameName, $consoleShortName);
+
+    }
+
+
+    /**
+     * Performs a case-insensitive search for the top rated
+     * picture URL for the given game on the specificed console.
+     * An exact match for the abbreviated console name be found.
+     *
+     * If a console is found, attempts to find an exact match using
+     * the game name. If an exact match isn't found uses TNTSearch
+     * to find potential matches and then uses the levenshtein distance
+     * to determine the closes match. If one is found that has at least
+     * one picture, returns the URL of the top-voted picture.
+     *
+     * @TODO: This was written this way because the original consolegrid
+     * site allowed for non-exact matches. Consider only allowing for
+     * exact console and game name matches. Also, this search
+     * method is a bit sloppy, there's lots of room for improvement.
+     *
+     * @param string $gameName          - The name of the game
+     * @param string $consoleShortName  - The abbreviated name of the console (ex. NES)
+     *
+     * @return string, the URL of the top-rated picture. If none found
+     * returns an empty string.
+     */
+    public function findTopPicture($gameName, $consoleShortName) {
+
+        // Find the console.
+        $console = Console::where('shortname', '=', $consoleShortName)->first();
+
+        $url = '';
+        if ($console) {
+            // Look for an exact match on the game name.
+            $matchingGame = Game::where('console_id', '=', $console->id)
+                ->where('name', '=', $gameName)->get()->first();
+
+            $topRatedPicture = NULL;
+
+            // Perform fuzzy search if no exact matches;
+            if (!$matchingGame) {
+                // Use TNT search to find all matches on the given console.
+                $matchingGames = Game::search($gameName)->where('console_id', $console->id)->get();
+
+                // Use levenshtein distance to determine closest matches. This is inefficient
+                // but there shouldn't too many matches.
+                $closestMatches = $matchingGames->sortBy(function($game, $key) use($gameName) {
+                    return levenshtein(strtolower($gameName), strtolower($game->name));
+                });
+
+                $matchingGame = $closestMatches->first();
+            }
+
+            if ($matchingGame && $matchingGame->topRatedPicture()) {
+                $topRatedPicture = $matchingGame->topRatedPicture();
+                $url = sprintf("%s/%s", 'http://192.168.1.9/images/game_images', $topRatedPicture->image_name);                
+            }
+        }
+
+        return $url;
+    }
+
+    /**
      * Find a game by id and route to view that
      * can display its details.
      *
-     *  @param $id -- the id of the gave to view
+     * @param $id -- the id of the gave to view
      *
      */
     public function find($id) {
