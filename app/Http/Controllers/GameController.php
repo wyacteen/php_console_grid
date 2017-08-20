@@ -95,7 +95,7 @@ class GameController extends Controller
 
             if ($matchingGame && $matchingGame->topRatedPicture()) {
                 $topRatedPicture = $matchingGame->topRatedPicture();
-                $url = sprintf("%s/%s", 'http://consolegridpics/images/game_images', $topRatedPicture->image_name);
+                $url = sprintf("%s/%s", 'http://consolegridpics.com/images/game_images', $topRatedPicture->image_name);
             }
         }
 
